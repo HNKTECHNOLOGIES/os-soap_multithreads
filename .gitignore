@@ -27,8 +27,13 @@ bin/
 
 # IDE — VS Code / Cursor local
 .vscode/
-.cursor/
 *.code-workspace
+# Garder la config Cloud Agent versionnée ; ignorer le reste de .cursor/
+.cursor/*
+!.cursor/environment.json
+!.cursor/install.sh
+!.cursor/start.sh
+
 
 # IDE — NetBeans
 nbproject/private/
