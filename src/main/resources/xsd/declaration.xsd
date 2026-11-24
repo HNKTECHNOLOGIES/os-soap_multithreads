@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://evaloc.fr/declarations"
+           targetNamespace="http://evaloc.fr/declarations"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified">
+
+    <xs:element name="rechercherDeclarationsRequest" type="tns:RechercherDeclarationsRequest"/>
+    <xs:element name="rechercherDeclarationsResponse" type="tns:RechercherDeclarationsResponse"/>
+
+    <xs:complexType name="RechercherDeclarationsRequest">
+        <xs:sequence>
+            <xs:element name="idFiche" type="xs:string" minOccurs="0"/>
+            <xs:element name="idDeclaFonciere" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdDept" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdCommune" type="xs:string" minOccurs="0"/>
+            <xs:element name="invariant" type="xs:string" minOccurs="0"/>
+            <xs:element name="idLocal" type="xs:string" minOccurs="0"/>
+            <xs:element name="etats" type="tns:StringList" minOccurs="0"/>
+            <xs:element name="typesLocaux" type="tns:StringList" minOccurs="0"/>
+            <xs:element name="critereTri" type="xs:string" minOccurs="0"/>
+            <xs:element name="sensTri" type="xs:string" minOccurs="0"/>
+            <xs:element name="numeroPage" type="xs:int" minOccurs="0"/>
+            <xs:element name="taillePage" type="xs:int" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="StringList">
+        <xs:sequence>
+            <xs:element name="valeur" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RechercherDeclarationsResponse">
+        <xs:sequence>
+            <xs:element name="declarations" type="tns:DeclarationList"/>
+            <xs:element name="nombreTotal" type="xs:long"/>
+            <xs:element name="nombrePages" type="xs:int"/>
+            <xs:element name="numeroPage" type="xs:int"/>
+            <xs:element name="taillePage" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="DeclarationList">
+        <xs:sequence>
+            <xs:element name="declaration" type="tns:Declaration" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Declaration">
+        <xs:sequence>
+            <xs:element name="idDeclaFonciere" type="xs:string" minOccurs="0"/>
+            <xs:element name="etat" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdDept" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdCommune" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdPrefix" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdSection" type="xs:string" minOccurs="0"/>
+            <xs:element name="noPlan" type="xs:string" minOccurs="0"/>
+            <xs:element name="dtChangement" type="xs:dateTime" minOccurs="0"/>
+            <xs:element name="typeLocal" type="xs:string" minOccurs="0"/>
+            <xs:element name="idLocal" type="xs:string" minOccurs="0"/>
+            <xs:element name="invariant" type="xs:string" minOccurs="0"/>
+            <xs:element name="idFiche" type="xs:string" minOccurs="0"/>
+            <xs:element name="dtCreation" type="xs:dateTime" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="OsFault">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="xs:string"/>
+                <xs:element name="message" type="xs:string"/>
+                <xs:element name="correlationId" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

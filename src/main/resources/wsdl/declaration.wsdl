@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://evaloc.fr/declarations"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             name="DeclarationWebService"
+             targetNamespace="http://evaloc.fr/declarations">
+
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://evaloc.fr/declarations"
+                        schemaLocation="../xsd/declaration.xsd"/>
+        </xsd:schema>
+    </types>
+
+    <message name="rechercherDeclarationsRequest">
+        <part name="parameters" element="tns:rechercherDeclarationsRequest"/>
+    </message>
+    <message name="rechercherDeclarationsResponse">
+        <part name="parameters" element="tns:rechercherDeclarationsResponse"/>
+    </message>
+    <message name="OsFaultMessage">
+        <part name="fault" element="tns:OsFault"/>
+    </message>
+
+    <portType name="DeclarationWebService">
+        <operation name="rechercherDeclarations">
+            <input message="tns:rechercherDeclarationsRequest"/>
+            <output message="tns:rechercherDeclarationsResponse"/>
+            <fault name="OsFault" message="tns:OsFaultMessage"/>
+        </operation>
+    </portType>
+
+    <binding name="DeclarationWebServiceSoapBinding" type="tns:DeclarationWebService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="rechercherDeclarations">
+            <soap:operation soapAction="http://evaloc.fr/declarations/rechercherDeclarations"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="OsFault">
+                <soap:fault name="OsFault" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+
+    <service name="DeclarationWebServiceService">
+        <port name="DeclarationWebServicePort" binding="tns:DeclarationWebServiceSoapBinding">
+            <soap:address location="http://localhost:8080/ws/declarations"/>
+        </port>
+    </service>
+</definitions>

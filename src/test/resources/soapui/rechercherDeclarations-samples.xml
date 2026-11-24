@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Exemples de requêtes SOAP pour SoapUI / curl -->
+<examples>
+  <example name="page1-default">
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                      xmlns:dec="http://evaloc.fr/declarations">
+      <soapenv:Header/>
+      <soapenv:Body>
+        <dec:rechercherDeclarationsRequest>
+          <dec:numeroPage>1</dec:numeroPage>
+          <dec:taillePage>50</dec:taillePage>
+          <dec:critereTri>idFiche</dec:critereTri>
+          <dec:sensTri>ASC</dec:sensTri>
+        </dec:rechercherDeclarationsRequest>
+      </soapenv:Body>
+    </soapenv:Envelope>
+  </example>
+
+  <example name="filtre-dept-etats">
+    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                      xmlns:dec="http://evaloc.fr/declarations">
+      <soapenv:Header/>
+      <soapenv:Body>
+        <dec:rechercherDeclarationsRequest>
+          <dec:cdDept>75</dec:cdDept>
+          <dec:etats>
+            <dec:valeur>1</dec:valeur>
+            <dec:valeur>2</dec:valeur>
+          </dec:etats>
+          <dec:typesLocaux>
+            <dec:valeur>AP</dec:valeur>
+          </dec:typesLocaux>
+          <dec:numeroPage>1</dec:numeroPage>
+          <dec:taillePage>20</dec:taillePage>
+        </dec:rechercherDeclarationsRequest>
+      </soapenv:Body>
+    </soapenv:Envelope>
+  </example>
+</examples>
