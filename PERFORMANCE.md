@@ -51,3 +51,16 @@ Le COUNT et la page sont obtenus dans des requêtes / partitions distinctes. Des
 ### DAC 3 secondes
 
 Le budget interne (`os.timeout.ms=2500`) laisse une marge avant le timeout DAC. Valider sur volumes 50k / 100k avec concurrence réelle avant conclusions.
+
+## Mesures réelles (environnement Cloud Agent — 2026-11-24, Europe/Paris)
+
+Volume : **1 000 fiches** / **950 éligibles** / 4 partitions / `parallel.enabled=true` / page 50.
+
+| Scénario | success | timeouts | errors | avg | min | max | p50 | p95 | p99 |
+|----------|---------|----------|--------|-----|-----|-----|-----|-----|-----|
+| concurrency=1, iterations=10 | 10 | 0 | 0 | 14 ms | 7 ms | 42 ms | 9 ms | 42 ms | 42 ms |
+| concurrency=5, iterations=20 | 3 | 0 | 17 | 81 ms | 79 ms | 84 ms | 80 ms | 84 ms | 84 ms |
+
+Les **17 erreurs** en concurrence 5 correspondent à la **saturation du ThreadPoolExecutor** (config initiale `max=8`, `queue=8` insuffisante pour `5 × 4 partitions`). Comportement attendu → SOAP Fault `EVALOC_005`. Pour les tests de charge concurrents, monter `parallel.maximumPoolSize` / `parallel.queueCapacity` (ou `db.pool.maximumSize`) sans dépasser les capacités PostgreSQL.
+
+Pas de mesure CPU/mémoire OS ni EXPLAIN ANALYZE chiffré dans cette passe : à compléter localement via `pidstat` et `03_explain_sample.sql`.
